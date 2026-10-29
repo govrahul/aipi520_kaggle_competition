@@ -9,13 +9,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 
 
-DATA_FOLDER = Path(__file__).resolve().parents[1] / "for_students"
+DATA_FOLDER = Path(__file__).resolve().parents[1] / "Data"
+STUDENT_DATA_FOLDER = DATA_FOLDER / "for_students"
 RANDOM_STATE = 520
 
-train_labels = pd.read_csv(DATA_FOLDER / "train.csv", encoding="latin1")
+train_labels = pd.read_csv(STUDENT_DATA_FOLDER / "train.csv", encoding="latin1")
 features = pd.read_csv(DATA_FOLDER / "merged.csv", encoding="latin1")
 subscriptions = pd.read_csv(
-    DATA_FOLDER / "subscriptions.csv",
+    STUDENT_DATA_FOLDER / "subscriptions.csv",
     encoding="latin1",
 )
 subscriptions["season_start_year"] = pd.to_numeric(
@@ -246,7 +247,7 @@ print(
 
 model.fit(data[model_features], train_labels["label"])
 
-test_ids = pd.read_csv(DATA_FOLDER / "test.csv", encoding="latin1")
+test_ids = pd.read_csv(STUDENT_DATA_FOLDER / "test.csv", encoding="latin1")
 test_data = test_ids.rename(columns={"ID": "account.id"}).merge(
     features,
     on="account.id",
